@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>キャラクター作成</title>
+<meta name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+  crossorigin="anonymous">
+</head>
+<body>
+  <h3 th:text="キャラクター作成"></h3>
+  <form th:action="@{/CreateCompleted}" th:object="${create}"
+    method="post">
+    職業：
+    <input type="radio" name="job" checked="" th:value="戦士"
+      th:text="戦士">
+    <input type="radio" name="job" th:value="魔法使い"
+      th:text="魔法使い">
+    <input type="radio" name="job" th:value="武闘家"
+      th:text="武闘家">
+    </br>
+    名前：
+    <input
+      type="text" name="name">
+    </br>
+    <input type="submit" value="次へ" />
+  </form>
+  <!-- TODO:職業をリストかなにかから取得して可変構造にできていない -->
+  <!-- TODO:職業、名前の表示、brタグの使用をやめたい -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+</body>
+</html>

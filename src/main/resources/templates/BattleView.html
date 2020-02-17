@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>戦闘結果</title>
+<meta name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+  crossorigin="anonymous">
+</head>
+<body>
+  <h3 th:text="戦闘結果"></h3>
+  <table class="table w-50" th:each="member, tmp: ${party.partyList}"
+    style="table-layout: fixed;">
+    <tr>
+      <td th:text="${member.Name} + 'は' + ${member.Command}"></td>
+    </tr>
+    <tr th:if="${tmp.size} == ${tmp.count}">
+      <td th:text="${monster.Name} + 'のHPは' + ${monster.hp} + 'になった！'"></td>
+    </tr>
+    <tr th:if="${tmp.size} == ${tmp.count}">
+      <td th:text="${monster.attackMessage}"></td>
+    </tr>
+  </table>
+
+  <!-- ここで再度コマンド選択に移動するのか敵が倒れたのかをチェック -->
+  <div th:if="${monster.hp} le 0"
+    th:text="${monster.knockedDownMessage}">
+  </div>
+  <div th:if="${monster.hp} gt 0">
+    <form th:action="@{/Command}" method="post">
+      <input type="submit" name="command" th:value="コマンド選択へ" />
+    </form>
+  </div>
+
+  </br>
+
+  <table class="table w-50" style="table-layout: fixed;">
+    <tr>
+      <th>名前</th>
+      <th>HP</th>
+      <th>職業</th>
+    </tr>
+    <tr th:each="member: ${party.partyList}">
+      <td th:text="${member.Name}"></td>
+      <td th:text="${member.Hp}"></td>
+      <td th:text="${member.jobName}"></td>
+    </tr>
+  </table>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+</body>
+</html>
