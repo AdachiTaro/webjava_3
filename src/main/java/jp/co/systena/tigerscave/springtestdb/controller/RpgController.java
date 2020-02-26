@@ -14,6 +14,7 @@ import jp.co.systena.tigerscave.springtestdb.model.display.Goblin;
 import jp.co.systena.tigerscave.springtestdb.model.display.Monster;
 import jp.co.systena.tigerscave.springtestdb.model.display.Party;
 import jp.co.systena.tigerscave.springtestdb.model.form.CharacterCreateForm;
+import jp.co.systena.tigerscave.springtestdb.service.DbAccessService;
 
 @Controller
 public class RpgController {
@@ -22,6 +23,9 @@ public class RpgController {
 
   @Autowired
   HttpSession session;
+
+  @Autowired
+  private DbAccessService dbAccessService;
 
   @RequestMapping("/CharacterCreate")
   public ModelAndView showCharacterCreate() {
@@ -34,19 +38,27 @@ public class RpgController {
   @RequestMapping(value = "/CreateCompleted", method = RequestMethod.POST)
   public ModelAndView characterCreate(HttpSession session, ModelAndView mav,
       CharacterCreateForm characterCreateForm) {
-    int id = 1;
-    if (session.getAttribute("partyList") != null) {
-      mParty = (Party) session.getAttribute("partyList");
-      id = mParty.getPartyList().size() + 1;
-    }
+
+    List<Party> mParty = dbAccessService.getPartyMembers();
+
     final int DEFAULT_HP = 100;
-    Character createdCharacter =
-        new Character(id, characterCreateForm.getJob(), DEFAULT_HP, characterCreateForm.getName());
 
-    mParty.addPartyMember(createdCharacter);
+    int jobId = 0;
+    switch(characterCreateForm.getJob()) {
+      case "戦士":
+        jobId = 1;
+        break;
+      case "魔法使い":
+        jobId = 2;
+        break;
+      case "武闘家":
+        jobId = 3;
+        break;
+    }
 
-    session.setAttribute("partyList", mParty);
+    dbAccessService.addCharacter(characterCreateForm.getName(), jobId, DEFAULT_HP);
 
+    mParty = dbAccessService.getPartyMembers();
     mav.addObject("party", mParty);
 
     // テンプレート名を設定
