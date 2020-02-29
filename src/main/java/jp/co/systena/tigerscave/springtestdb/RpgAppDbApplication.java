@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RpgAppDbApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RpgAppDbApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(RpgAppDbApplication.class, args);
+  }
 
 }

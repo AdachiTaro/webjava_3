@@ -39,12 +39,10 @@ public class RpgController {
   public ModelAndView characterCreate(HttpSession session, ModelAndView mav,
       CharacterCreateForm characterCreateForm) {
 
-    List<Party> mParty = dbAccessService.getPartyMembers();
-
     final int DEFAULT_HP = 100;
 
     int jobId = 0;
-    switch(characterCreateForm.getJob()) {
+    switch (characterCreateForm.getJob()) {
       case "戦士":
         jobId = 1;
         break;
@@ -56,6 +54,7 @@ public class RpgController {
         break;
     }
 
+    // 生成したキャラクターの情報をcharactersテーブルへ登録
     dbAccessService.addCharacter(characterCreateForm.getName(), jobId, DEFAULT_HP);
 
     mParty = dbAccessService.getPartyMembers();
