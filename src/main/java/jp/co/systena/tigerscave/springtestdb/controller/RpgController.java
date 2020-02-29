@@ -36,7 +36,7 @@ public class RpgController {
   }
 
   @RequestMapping(value = "/CreateCompleted", method = RequestMethod.POST)
-  public ModelAndView characterCreate(HttpSession session, ModelAndView mav,
+  public ModelAndView characterCreate(ModelAndView mav,
       CharacterCreateForm characterCreateForm) {
 
     final int DEFAULT_HP = 100;
@@ -67,8 +67,7 @@ public class RpgController {
   }
 
   @RequestMapping(value = "/Command", method = RequestMethod.POST)
-  public ModelAndView commandSelect(HttpSession session, ModelAndView mav) {
-    mParty = (Party) session.getAttribute("partyList");
+  public ModelAndView commandSelect(ModelAndView mav) {
 
     // コマンド画面を開いたところで全キャラのコマンドを"未選択"に設定
     for (Character chara : mParty.getPartyList()) {
@@ -83,7 +82,6 @@ public class RpgController {
   @RequestMapping(value = "/SelectCommand", method = RequestMethod.POST)
   public ModelAndView commandSelect(@ModelAttribute("selectcommand") String selectedCommand,
       @ModelAttribute("memberId") int selectCharaId, HttpSession session, ModelAndView mav) {
-    mParty = (Party) session.getAttribute("partyList");
     List<Character> partyList = mParty.getPartyList();
 
     // 選ばれたコマンドの表示する文言をキャラクタにセット
@@ -158,9 +156,7 @@ public class RpgController {
       // モンスターの攻撃文言を準備
       monster.fight(character.get(attackOpponentId).getName(), attackPower);
 
-      // 減った状態を反映させるためにsessionに保存する
       mParty.setPartyList(character);
-      session.setAttribute("party", mParty);
 
       // プレイヤーのパーティを渡す
       mav.addObject("party", mParty);
