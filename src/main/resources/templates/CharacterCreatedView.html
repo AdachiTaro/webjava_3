@@ -17,12 +17,14 @@
     <table class="table" style="table-layout:fixed;">
       <tr>
         <td th:text="'職業:' + ${member.jobName}"></td>
-      </tr>
-      <tr>
         <td th:text="'名前:' + ${member.Name}"></td>
+        <td>
+          <a href="" th:href="@{/deleteCharacter(character_id=${member.characterId})}">削除</a>
+        </td>
       </tr>
     </table>
 
+    <!-- 登録キャラが4人より少ない時 -->
     <div th:if="${tmp.size} lt 4">
       <div th:if="${tmp.size} == ${tmp.count}">
         <form th:action="@{/CharacterCreate}" method="post">
@@ -31,6 +33,7 @@
       </div>
     </div>
   </div>
+
   <form th:action="@{/Command}" method="post">
     <input type="submit" name="command" th:value="コマンド選択へ" />
   </form>

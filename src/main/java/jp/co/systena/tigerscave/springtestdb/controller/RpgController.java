@@ -5,9 +5,11 @@ import java.util.Random;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import jp.co.systena.tigerscave.springtestdb.model.display.Character;
 import jp.co.systena.tigerscave.springtestdb.model.display.Goblin;
@@ -166,4 +168,27 @@ public class RpgController {
     }
     return mav;
   }
+
+  @RequestMapping(value = "/deleteCharacter", method = RequestMethod.GET)
+  public String update(@RequestParam(name = "character_id", required = true) String characterId,
+      Model model) {
+
+    dbAccessService.deleteCharacter(characterId);
+
+    return "redirect:/CreateCompleted";
+  }
+
+  @RequestMapping(value = "/CreateCompleted", method = RequestMethod.GET)
+  public ModelAndView redirectCharacterCreate(ModelAndView mav,
+      CharacterCreateForm characterCreateForm) {
+
+    mParty = dbAccessService.getPartyMembers();
+    mav.addObject("party", mParty);
+
+    // テンプレート名を設定
+    mav.setViewName("CharacterCreatedView");
+
+    return mav;
+  }
+
 }

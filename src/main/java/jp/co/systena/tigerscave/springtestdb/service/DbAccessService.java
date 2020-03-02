@@ -49,4 +49,15 @@ public class DbAccessService {
         "INSERT INTO characters(character_name, character_job_id, default_hp) VALUES(?, ?, ?)",
         name, jobId, DEFAULT_HP);
   }
+
+  public void deleteCharacter(String characterId) {
+    String sql = "DELETE FROM characters WHERE character_id = ? ", s
+        + "ON characters.character_job_id = jobs.job_id " + "ORDER BY character_id";
+
+
+    jdbcTemplate.update(sql);
+    int deleteCount = jdbcTemplate.update("DELETE FROM items WHERE item_id = ?", Integer.parseInt(itemId));
+    // TODO 自動生成されたメソッド・スタブ
+
+  }
 }
