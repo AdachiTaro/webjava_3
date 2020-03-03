@@ -32,11 +32,23 @@
         </form>
       </div>
     </div>
-  </div>
 
-  <form th:action="@{/Command}" method="post">
-    <input type="submit" name="command" th:value="コマンド選択へ" />
-  </form>
+    <!-- 登録キャラが4人以下の時  -->
+    <div th:if="${tmp.size} le 4">
+      <div th:if="${tmp.size} == ${tmp.count}">
+        <form th:action="@{/Command}" method="post">
+          <input type="submit" name="command" th:value="コマンド選択へ" />
+        </form>
+      </div>
+    </div>
+
+    <!-- 登録キャラが5人以上の時 -->
+    <div th:if="${tmp.size} ge 5">
+      <div th:if="${tmp.size} == ${tmp.count}">
+        <h2 th:text="登録上限を超えているため、キャラクターを削除してください"></h2>
+      </div>
+    </div>
+  </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>

@@ -5,7 +5,7 @@
 -- Dumped from database version 12.2
 -- Dumped by pg_dump version 12.2
 
--- Started on 2020-02-26 20:33:45
+-- Started on 2020-03-04 01:09:19
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 205 (class 1259 OID 16415)
+-- TOC entry 205 (class 1259 OID 16449)
 -- Name: characters; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -31,14 +31,14 @@ CREATE TABLE public.characters (
     character_id integer NOT NULL,
     character_name text NOT NULL,
     character_job_id integer NOT NULL,
-    default_hp integer DEFAULT 100 NOT NULL
+    default_hp integer NOT NULL
 );
 
 
 ALTER TABLE public.characters OWNER TO postgres;
 
 --
--- TOC entry 204 (class 1259 OID 16413)
+-- TOC entry 204 (class 1259 OID 16447)
 -- Name: characters_character_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -54,7 +54,7 @@ CREATE SEQUENCE public.characters_character_id_seq
 ALTER TABLE public.characters_character_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2837 (class 0 OID 0)
+-- TOC entry 2836 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: characters_character_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -92,7 +92,7 @@ CREATE SEQUENCE public.jobs_job_id_seq
 ALTER TABLE public.jobs_job_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2838 (class 0 OID 0)
+-- TOC entry 2837 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: jobs_job_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -101,7 +101,7 @@ ALTER SEQUENCE public.jobs_job_id_seq OWNED BY public.jobs.job_id;
 
 
 --
--- TOC entry 2696 (class 2604 OID 16418)
+-- TOC entry 2696 (class 2604 OID 16452)
 -- Name: characters character_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -117,19 +117,17 @@ ALTER TABLE ONLY public.jobs ALTER COLUMN job_id SET DEFAULT nextval('public.job
 
 
 --
--- TOC entry 2831 (class 0 OID 16415)
+-- TOC entry 2830 (class 0 OID 16449)
 -- Dependencies: 205
 -- Data for Name: characters; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.characters (character_id, character_name, character_job_id, default_hp) FROM stdin;
-1	あああ	1	100
-2	あああ	1	100
 \.
 
 
 --
--- TOC entry 2829 (class 0 OID 16404)
+-- TOC entry 2828 (class 0 OID 16404)
 -- Dependencies: 203
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -142,16 +140,16 @@ COPY public.jobs (job_id, job_name) FROM stdin;
 
 
 --
--- TOC entry 2839 (class 0 OID 0)
+-- TOC entry 2838 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: characters_character_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.characters_character_id_seq', 2, true);
+SELECT pg_catalog.setval('public.characters_character_id_seq', 1, false);
 
 
 --
--- TOC entry 2840 (class 0 OID 0)
+-- TOC entry 2839 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: jobs_job_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -160,7 +158,7 @@ SELECT pg_catalog.setval('public.jobs_job_id_seq', 3, true);
 
 
 --
--- TOC entry 2701 (class 2606 OID 16423)
+-- TOC entry 2700 (class 2606 OID 16457)
 -- Name: characters characters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -169,7 +167,7 @@ ALTER TABLE ONLY public.characters
 
 
 --
--- TOC entry 2699 (class 2606 OID 16412)
+-- TOC entry 2698 (class 2606 OID 16412)
 -- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -177,7 +175,7 @@ ALTER TABLE ONLY public.jobs
     ADD CONSTRAINT jobs_pkey PRIMARY KEY (job_id);
 
 
--- Completed on 2020-02-26 20:33:45
+-- Completed on 2020-03-04 01:09:20
 
 --
 -- PostgreSQL database dump complete

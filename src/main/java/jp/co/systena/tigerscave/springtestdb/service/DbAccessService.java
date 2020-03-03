@@ -44,16 +44,16 @@ public class DbAccessService {
   }
 
 
+  // テーブルにキャラクターを登録する
   public void addCharacter(String name, int jobId, int DEFAULT_HP) {
     jdbcTemplate.update(
         "INSERT INTO characters(character_name, character_job_id, default_hp) VALUES(?, ?, ?)",
         name, jobId, DEFAULT_HP);
   }
 
+  // テーブルから選んだキャラクターIDのキャラを削除する
   public void deleteCharacter(String characterId) {
     String sql = "DELETE FROM characters WHERE character_id = ? ";
-
     jdbcTemplate.update(sql, Integer.parseInt(characterId));
-
   }
 }
