@@ -51,13 +51,9 @@ public class DbAccessService {
   }
 
   public void deleteCharacter(String characterId) {
-    String sql = "DELETE FROM characters WHERE character_id = ? ", s
-        + "ON characters.character_job_id = jobs.job_id " + "ORDER BY character_id";
+    String sql = "DELETE FROM characters WHERE character_id = ? ";
 
-
-    jdbcTemplate.update(sql);
-    int deleteCount = jdbcTemplate.update("DELETE FROM items WHERE item_id = ?", Integer.parseInt(itemId));
-    // TODO 自動生成されたメソッド・スタブ
+    jdbcTemplate.update(sql, Integer.parseInt(characterId));
 
   }
 }

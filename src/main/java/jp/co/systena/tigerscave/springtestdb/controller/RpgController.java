@@ -38,8 +38,7 @@ public class RpgController {
   }
 
   @RequestMapping(value = "/CreateCompleted", method = RequestMethod.POST)
-  public ModelAndView characterCreate(ModelAndView mav,
-      CharacterCreateForm characterCreateForm) {
+  public ModelAndView characterCreate(ModelAndView mav, CharacterCreateForm characterCreateForm) {
 
     final int DEFAULT_HP = 100;
 
@@ -86,20 +85,23 @@ public class RpgController {
       @ModelAttribute("memberId") int selectCharaId, HttpSession session, ModelAndView mav) {
     List<Character> partyList = mParty.getPartyList();
 
-    // 選ばれたコマンドの表示する文言をキャラクタにセット
-    Character commandSelectChara = partyList.get(selectCharaId - 1);
-    switch (selectedCommand) {
-      case "たたかう":
-        commandSelectChara.setCommand(commandSelectChara.getJob().fight());
-        commandSelectChara.setCommandId(commandSelectChara.COMMAND_FIGHT);
-        break;
-      case "かいふく":
-        commandSelectChara.setCommand(commandSelectChara.getJob().heal());
-        commandSelectChara.setCommandId(commandSelectChara.COMMAND_HEAL);
+    // CommandViewで選んだキャラのIDと一致するキャラのところにコマンド入力する
+    for (Character chara : partyList) {
+      if (chara.getCharacterId() == selectCharaId) {
+        switch (selectedCommand) {
+          case "たたかう":
+            chara.setCommand(chara.getJob().fight());
+            chara.setCommandId(chara.COMMAND_FIGHT);
+            break;
+          case "かいふく":
+            chara.setCommand(chara.getJob().heal());
+            chara.setCommandId(chara.COMMAND_HEAL);
 
-        // ⑧ 回復実行
-        commandSelectChara.executeHeal();
-        break;
+            // ⑧ 回復実行
+            chara.executeHeal();
+            break;
+        }
+      }
     }
 
     // 全員のコマンド選択が終わっているか確認
